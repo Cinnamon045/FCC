@@ -1,0 +1,48 @@
+** start of main.py **
+
+full_dot = '●'
+empty_dot = '○'
+
+def create_character(user_in_char, user_in_strength, user_in_intel, user_in_charisma):
+
+    # ---- Character name validation ----
+    if type(user_in_char) is not str:
+        return "The character name should be a string"
+
+    if not user_in_char.strip():
+        return "The character should have a name"
+
+    if len(user_in_char) > 10:
+        return "The character name is too long"
+
+    if any(c.isspace() for c in user_in_char):
+        return "The character name should not contain spaces"
+
+    # ---- Stats validation ----
+    stats = (user_in_strength, user_in_intel, user_in_charisma)
+
+    if not all(isinstance(x, int) for x in stats):
+        return "All stats should be integers"
+
+    if any(x < 1 for x in stats):
+        return "All stats should be no less than 1"
+
+    if any(x > 4 for x in stats):
+        return "All stats should be no more than 4"
+
+    if sum(stats) != 7:
+        return "The character should start with 7 points"
+
+    # ---- Output formatting ----
+    def dots(value):
+        return full_dot * value + empty_dot * (10 - value)
+
+    return (
+        f"{user_in_char}\n"
+        f"STR {dots(user_in_strength)}\n"
+        f"INT {dots(user_in_intel)}\n"
+        f"CHA {dots(user_in_charisma)}"
+    )
+
+** end of main.py **
+
